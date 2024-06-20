@@ -1,0 +1,12 @@
+version: '3'
+services:
+  database:
+    image: "postgres:13.4"
+    restart: always
+    env_file:
+      - database.env # configure postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      # copy the sql script to create tables
+      - ../.setup/postgres/pre-liquibase-init.sql:/docker-entrypoint-initdb.d/pre-liquibase-init.sql

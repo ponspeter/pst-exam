@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cars>
+    <car>
+        <id>ac0b27a0-bce4-4329-b6c7-fbdadd65cc87</id>
+        <length>10.0</length>
+        <weight>20.0</weight>
+        <velocity>30.0</velocity>
+        <color>blue</color>
+    </car>
+</cars>

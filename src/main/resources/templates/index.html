@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Exam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/shards.min.css">
+</head>
+<body>
+   <input type="hidden" value="cars">
+    <div th:switch="${cars}" class="container my-5">
+        <div class="row">
+            <div class="form-group col-md-2">
+                <form th:action="@{/search}" method="post">
+                    <label for="field" class="col-form-label">field</label>
+                    <select class="form-control" name="field">
+                        <option value="all">All</option>
+                        <option value="length">Length</option>
+                        <option value="weight">Weight</option>
+                        <option value="velocity">Velocity</option>
+                        <option value="color">Color</option>
+                    </select>
+                    <label for="operation" class="col-form-label">operation</label>
+                    <select class="form-control" name="operation">
+                        <option value="=">equal</option>
+                        <option value="!=">not equal</option>
+                        <option value="%">like</option>
+                        <option value="gte">greater than or equal to</option>
+                        <option value="lte">less than or equal to</option>
+                        <option value="gt">greater than</option>
+                        <option value="lt">less than</option>
+                        <option value="bet">between</option>
+                    </select>
+                    <label for="param1" class="col-form-label">param 1</label>
+                    <input type="text" name="param1"  class="form-control">
+                    <label for="param2" class="col-form-label">param 2</label>
+                    <input type="text" name="param2"  class="form-control">
+                    <div class="row">
+                        <div class="col-md-6 mt-2">
+                            <input type="submit" class="btn btn-primary" value="Search">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            <p class="my-2"><a href="/add" class="btn btn-primary">Create</a></p>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <h2 th:case="null">No records yet!</h2>
+                <div th:case="*">
+                    <h2 class="my-5">Cars</h2>
+                    <table class="table table-striped table-responsive-md">
+                        <thead>
+                        <tr>
+                            <th>Length</th>
+                            <th>Weight</th>
+                            <th>Velocity</th>
+                            <th>Color</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <form action="#" th:action="@{/download}" method="post" th:field="${cars}">
+                        <tbody>
+                            <tr th:each="car : ${cars}">
+                                <td th:text="${car.length}"></td>
+                                <td th:text="${car.weight}"></td>
+                                <td th:text="${car.velocity}"></td>
+                                <td th:text="${car.color}"></td>
+                                <td><a th:href="@{/edit/{id}(id=${car.id})}" class="btn btn-primary">Update</a></td>
+                                <td><a th:href="@{/delete/{id}(id=${car.id})}" class="btn btn-primary">Delete</a></td>
+                        </tr>
+                        </tbody>
+                            <div class="row">
+                                <div class="col-md-6 mt-2">
+                                    <input type="submit" class="btn btn-primary" name="btnDownload" value="Download">
+                                </div>
+                            </div>
+                        </form>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
